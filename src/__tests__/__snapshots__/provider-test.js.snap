@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders a basic element 1`] = `<span />`;
+
+exports[`Renders a custom component 1`] = `
+<div>
+  Hello 
+  World
+  !
+</div>
+`;
+
+exports[`Renders a custom component with mapped values 1`] = `
+<div>
+  Hello 
+  Mapped
+  !
+</div>
+`;
+
+exports[`Renders a custom component with static props 1`] = `
+<div>
+  Hello 
+  Test
+  !
+</div>
+`;

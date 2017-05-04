@@ -1,0 +1,30 @@
+{
+  "name": "martingale-provider",
+  "version": "0.0.1",
+  "description": "A data provider component built for use in Martingale",
+  "main": "index.js",
+  "repository": "https://github.com/pearsontechnology/martingale-provider.git",
+  "author": "Jeremy Darling <jeremy.darling@pearson.com>",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest",
+    "compile": "babel src --out-dir lib",
+    "pretest": "npm run compile",
+    "prepublish": "npm run test"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^19.0.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "jest": "^19.0.2",
+    "react-test-renderer": "^15.5.4"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "martingale-utils": "file:../utils",
+    "react": "^15.5.4"
+  }
+}
