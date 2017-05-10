@@ -81,6 +81,7 @@ const Provider = ({Component, children, provide, mapper, props})=>{
           return !PropTypes.checkPropTypes(componentPropTypes, {[key]: value}, 'prop', componentName);
         }catch(e){
           console.error(e);
+          console.error('propIsValid', componentName, key, value);
           return false;
         }
       }
@@ -100,16 +101,14 @@ const Provider = ({Component, children, provide, mapper, props})=>{
       const staticProps = Object.keys(staticPropsValues||{}).reduce((props, key)=>{
         return Object.assign({}, props, {[key]: staticPropsValues[key]});
       }, {});
-
       const allValues = Object.keys(data).reduce((props, key)=>{
         return Object.assign({}, props, {[key]: data[key]});
       }, staticProps);
-
       const propValues = this.mapPropValues(allValues);
       const componentValues = Object.keys(propValues).reduce((vals, key)=>{
         const value = propValues[key];
         if(this.propIsValid(key, value)){
-          return Object.assign({}, props, {[key]: value});
+          return Object.assign({}, vals, {[key]: value});
         }
         return vals;
       }, {});

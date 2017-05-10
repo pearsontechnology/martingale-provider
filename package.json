@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "martingale-utils": "file:../utils",
+    "martingale-utils": "^0.0.1",
     "react": "^15.5.4"
   }
 }
