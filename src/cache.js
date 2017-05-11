@@ -6,7 +6,7 @@ import {
 
 import {
   fetchJson
-} from './fetch';
+} from 'martingale-utils';
 
 const DEFAULT_CACHE_TIMEOUT = 500;
 
