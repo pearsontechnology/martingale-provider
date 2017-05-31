@@ -36,6 +36,14 @@ provider(MyComponent, {
 
 const cache = new Cache();
 
+const checkCacheUpdates = ()=>{
+  cache.checkForUpdates();
+  setTimeout(checkCacheUpdates, 1000);
+};
+
+setTimeout(checkCacheUpdates, 1000);
+
+
 const getComponentPropTypes = (component)=>{
   if(!component){
     return false;

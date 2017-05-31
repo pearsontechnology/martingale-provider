@@ -51,6 +51,45 @@ class Cache{
     return false;
   }
 
+  checkItemRefresh(options){
+    const {
+      method = 'get',
+      url,
+      refresh = -1
+    } = options;
+    if(refresh === -1){
+      return;
+    }
+    const key = this.getCacheKey(method, url);
+    if(this.fetching.indexOf(key)>-1){
+      return;
+    }
+    const cacheItem = this.cache[key];
+    if(!cacheItem){
+      return this.fetchAll(options);
+    }
+    const now = new Date();
+    const badAfter = now.getTime()-refresh;
+    const lifespan = cacheItem.at-badAfter;
+    const needsRefresh = lifespan <= 0;
+    if(needsRefresh){
+      this.fetch(options);
+    }
+  }
+
+  checkForUpdates(){
+    const indexes = Object.keys(this.handles).filter(isNumeric).map(n=>+n);
+    indexes.forEach((index)=>{
+      const handle = this.handles[index] || {};
+      const options = handle.options || {};
+      const keys = Object.keys(options);
+      keys.forEach((key)=>{
+        const opts = options[key];
+        this.checkItemRefresh(opts);
+      });
+    });
+  }
+
   sendUpdate(url, handler, data){
     const urlMatches = (urlObj)=>urlObj.url===url;
     const {
@@ -95,16 +134,17 @@ class Cache{
     if(!url){
       return;
     }
-    if(this.fetching.indexOf(url)>-1){
+    const key = this.getCacheKey(method, url);
+    if(this.fetching.indexOf(key)>-1){
       return;
     }
-    this.fetching = [...this.fetching, url];
+    this.fetching = [...this.fetching, key];
     return fetchJson({
       url,
       method,
       ...options,
       callback: (err, data)=>{
-        this.fetching = this.fetching.filter((u)=>u!==url);
+        this.fetching = this.fetching.filter((u)=>u!==key);
         this.processUpdate(method, url, err, data);
       }
     });
