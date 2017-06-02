@@ -110,7 +110,7 @@ class Cache{
         } = transform;
         const resData = root===false?data:getObjectValue(root, data, defaultValue);
         const finalData = mapper?mapper(resData):resData;
-        setImmediate(()=>callback({[key]: finalData}, key));
+        return setImmediate(()=>callback({[key]: finalData}, key));
       }
     });
   }
