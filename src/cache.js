@@ -1,7 +1,8 @@
 import {
   isNumeric,
   flatten,
-  getObjectValue
+  getObjectValue,
+  isErrorObject
 } from 'martingale-utils';
 
 import {
@@ -97,11 +98,15 @@ class Cache{
       options,
       urls
     } = handler;
+    const isError = isErrorObject(data);
     urls.forEach((urlObj)=>{
       if(urlMatches(urlObj)){
         const {
           key
         } = urlObj;
+        if(isError){
+          return setImmediate(()=>callback({[key]: data}, key));
+        }
         const transform = options[key];
         const {
           root = false,
@@ -116,13 +121,17 @@ class Cache{
   }
 
   processUpdate(method = 'get', url, err, data){
-    if(err){
-      return console.error(url, err);
-    }
-    const keys = Object.keys(this.handles).filter(isNumeric).map(n=>+n);
-    const allHandlers = keys.map((key)=>this.handles[key]);
     const now = new Date();
     const key = this.getCacheKey(method, url);
+    const keys = Object.keys(this.handles).filter(isNumeric).map(n=>+n);
+    const allHandlers = keys.map((key)=>this.handles[key]);
+    if(err){
+      this.cache[key] = {
+        data: err,
+        at: now.getTime()
+      };
+      return allHandlers.forEach((handler)=>this.sendUpdate(url, handler, data));
+    }
     this.cache[key] = {
       data,
       at: now.getTime()
