@@ -139,7 +139,7 @@ class Cache{
     allHandlers.forEach((handler)=>this.sendUpdate(url, handler, data));
   }
 
-  fetch({url, method = 'get', ...options}){
+  fetch({url, method = 'get', headers: sourceHeaders, ...options}){
     if(!url){
       return;
     }
@@ -148,6 +148,13 @@ class Cache{
       return;
     }
     this.fetching = [...this.fetching, key];
+    if(typeof(sourceHeaders)==='object'){
+      options.headers = Object.keys(sourceHeaders).reduce((h, key)=>{
+        const value = sourceHeaders[key];
+        h[key] = typeof(value)==='function'?value():value;
+        return h;
+      }, {});
+    }
     return fetchJson({
       url,
       method,
