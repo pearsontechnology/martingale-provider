@@ -69,6 +69,82 @@ const getComponentName = (component)=>{
   }
 };
 
+/**
+ * Fetches data from remote endpoints and returns an instance of a React Class providing the data as properties
+ * @param {object} options
+ * @param {class} options.Component - React Class to render once the data is available
+ * @param {array} options.children - Array of children to pass to the component
+ * @param {object} options.provide - Hash of key/options to pass into the component
+ * @param {object} options.provide.key - Name of the property
+ * @param {string} options.provide.key.url - URL to fetch data from
+ * @param {string} options.provide.key.method - HTTP Method, defaults to GET
+ * @param {string} options.provide.key.headers - Hash of headers to pass through with the request
+ * @param {function} options.provide.key.mapper - Used to mutate the properties before they are sent to the top level mutation
+ * @param {string} options.provide.key.root - Member name of the data to return from the request
+ * @param {number} options.provide.key.refresh - Refresh interval, if set then every x milliseconds a new set of data will be fetched and sent to the component instance
+ * @param {function} options.mapper - Used to mutate the properties before they are sent to the component instance
+ * @param {object} options.props - Additional properties to return
+ *
+ * @example
+ * import React, {Component} from 'react';
+ * import ReactDOM from 'react-dom';
+ * import PropTypes from 'prop-types';
+ * import {Provider} from 'martingale-provider';
+ *
+ * // Some static properties to send
+ * const data = {
+ *   name: 'Test',
+ *   value: 'Mapped',
+ *   people: [
+ *     {name: 'Bob'},
+ *     {name: 'Sue'},
+ *     {name: 'Phil'},
+ *     {name: 'Henry'},
+ *   ]
+ * };
+ *
+ * // Some helper objects, just cuz
+ * const Greet=({name='World'})=>(<div>Hello {name}!</div>);
+ * Greet.propTypes={
+ *   name: PropTypes.string
+ * };
+ * const GreetList=({people=[]})=><div>{people.map((person, index)=><Greet key={index} {...person} />)}</div>;
+ * const JsonView=({json})=><pre>{JSON.stringify(json, null, 2)}</pre>
+ *
+ * // A mapper function that takes the value member and returns it as the name member
+ * const mapper = ({value})=>{
+ *   return {
+ *     name: value
+ *   };
+ * };
+ *
+ * // A list of provider sources to send to provide
+ * const sources = {
+ *   json: {
+ *     url: 'http://httpbin.org/get'
+ *   }
+ * };
+ *
+ * class App extends Component {
+ *   render() {
+ *     return (
+ *       <div className="App">
+ *         <Provider Component={Greet} /> // Will output "Hello World!"
+ *         <Provider Component={Greet} props={data}/> // Will output "Hello Test!"
+ *         <Provider Component={GreetList} props={data}/> // Will output a list of Hello's
+ *         <Provider Component={Greet} props={data} mapper={mapper} /> // Will output "Hello Mapped!"
+ *         <Provider Component={JsonView} provide={sources} /> // Will output a pre tag with the results from httpbin
+ *       </div>
+ *     );
+ *   }
+ * };
+ *
+ * ReactDOM.render(
+ *   <App />,
+ *   document.getElementById('root')
+ * );
+ */
+
 const Provider = ({Component, children, provide, mapper, props})=>{
   const componentName = getComponentName(Component);
   const componentPropTypes=getComponentPropTypes(Component);
