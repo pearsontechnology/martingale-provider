@@ -75,7 +75,7 @@ const getComponentName = (component)=>{
  * @param {class} options.Component - React Class to render once the data is available
  * @param {array} options.children - Array of children to pass to the component
  * @param {object} options.provide - Hash of key/options to pass into the component
- * @param {object} options.provide.key - Name of the property
+ * @param {object} options.provide.key - Name of the property, this is the HASH key, don't use the word "key" as that is a reseved word in React
  * @param {string} options.provide.key.url - URL to fetch data from
  * @param {string} options.provide.key.method - HTTP Method, defaults to GET
  * @param {string} options.provide.key.headers - Hash of headers to pass through with the request

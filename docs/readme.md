@@ -14,7 +14,7 @@ Fetches data from remote endpoints and returns an instance of a React Class prov
     -   `options.Component` **class** React Class to render once the data is available
     -   `options.children` **[array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)** Array of children to pass to the component
     -   `options.provide` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Hash of key/options to pass into the component
-        -   `options.provide.key` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Name of the property
+        -   `options.provide.key` **[object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)** Name of the property, this is the HASH key, don't use the word "key" as that is a reseved word in React
             -   `options.provide.key.url` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** URL to fetch data from
             -   `options.provide.key.method` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** HTTP Method, defaults to GET
             -   `options.provide.key.headers` **[string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)** Hash of headers to pass through with the request
