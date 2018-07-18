@@ -1,6 +1,6 @@
 {
   "name": "@martingale/provider",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A data provider component built for use in Martingale",
   "main": "index.js",
   "repository": "https://github.com/pearsontechnology/martingale-provider.git",
@@ -26,8 +26,8 @@
     "yargs": "^8.0.2"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
     "@martingale/utils": "^0.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^15.6.1"
   }
 }
