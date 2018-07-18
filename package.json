@@ -1,5 +1,5 @@
 {
-  "name": "martingale-provider",
+  "name": "@martingale/provider",
   "version": "0.0.1",
   "description": "A data provider component built for use in Martingale",
   "main": "index.js",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "martingale-utils": "^0.0.1",
+    "@martingale/utils": "^0.0.1",
     "react": "^15.6.1"
   }
 }
