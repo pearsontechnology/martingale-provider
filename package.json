@@ -1,6 +1,6 @@
 {
   "name": "@martingale/provider",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A data provider component built for use in Martingale",
   "main": "index.js",
   "repository": "https://github.com/pearsontechnology/martingale-provider.git",
