@@ -3,11 +3,11 @@ import {
   flatten,
   getObjectValue,
   isErrorObject
-} from 'martingale-utils';
+} from '@martingale/utils';
 
 import {
   fetchJson
-} from 'martingale-utils';
+} from '@martingale/utils';
 
 const DEFAULT_CACHE_TIMEOUT = 500;
 

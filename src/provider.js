@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   isTheSame
-} from 'martingale-utils';
+} from '@martingale/utils';
 import {
   Cache
 } from './cache';
